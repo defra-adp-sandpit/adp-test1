@@ -1,0 +1,24 @@
+services:
+  ? adp-test1-core-tests
+  : build:
+      target: development
+    image: adp-test1-core-tests-development
+    container_name: adp-test1-core-tests
+    user: root
+    entrypoint: sh -c "cd /home/dotnet && chown -R dotnet:dotnet . && su dotnet -c 'dotnet watch --project test/Adp.Test1.Core.Tests/Adp.Test1.Core.Tests.csproj test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./test-output/'"
+    volumes:
+      - ./src/Adp.Test1.Core:/home/dotnet/src/Adp.Test1.Core
+      - ./test/Adp.Test1.Core.Tests:/home/dotnet/test/Adp.Test1.Core.Tests
+      - ./test-output:/home/dotnet/Adp.Test1.Core.Tests/test-output
+
+  ? adp-test1-api-tests
+  : build:
+      target: development
+    image: adp-test1-api-tests-development
+    container_name: adp-test1-api-tests
+    user: root
+    entrypoint: sh -c "cd /home/dotnet && chown -R dotnet:dotnet . && su dotnet -c 'dotnet watch --project test/Adp.Test1.Api.Tests/Adp.Test1.Api.Tests.csproj test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./test-output/'"
+    volumes:
+      - ./src/Adp.Test1.Api:/home/dotnet/src/Adp.Test1.Api
+      - ./test/Adp.Test1.Api.Tests:/home/dotnet/test/Adp.Test1.Api.Tests
+      - ./test-output:/home/dotnet/Adp.Test1.Api.Tests/test-output

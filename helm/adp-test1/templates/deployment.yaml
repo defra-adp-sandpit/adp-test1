@@ -1,0 +1,11 @@
+{{- include "adp-helm-library.deployment" (list . "adp-test1.deployment") -}}
+{{- define "adp-test1.deployment" -}}
+spec:
+  template:
+    spec:
+      containers:
+      - {{ include "adp-helm-library.container" (list . "adp-test1.container") }}
+      volumes:
+      - name: {{ .Values.volumeMounts.name }}
+        emptyDir: {}
+{{- end -}}

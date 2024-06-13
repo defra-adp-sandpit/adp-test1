@@ -1,0 +1,12 @@
+# This override file should be used when running this service in isolation
+# to provide required sibling services for local testing
+
+services:
+  ? adp-test1
+  : build:
+      target: development
+    ports:
+      - "3007:3007"
+    volumes:
+      - ./src/Adp.Test1.Api:/home/dotnet/src/Adp.Test1.Api
+      - ./src/Adp.Test1.Core:/home/dotnet/src/Adp.Test1.Core
